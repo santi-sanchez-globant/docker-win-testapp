@@ -15,5 +15,5 @@ generate_export_header (docker-test-library
     EXPORT_FILE_NAME docker-test-library_Export.h
     STATIC_DEFINE docker-test-library_BUILT_AS_STATIC)
 
-file (COPY ${PROJECT_BINARY_DIR}/docker-test-library/docker-test-library.dll
-      DESTINATION ${PROJECT_BINARY_DIR})
+#file (COPY ${PROJECT_BINARY_DIR}/docker-test-library/docker-test-library.dll
+#      DESTINATION ${PROJECT_BINARY_DIR})
