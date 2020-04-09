@@ -1,23 +1,19 @@
-﻿# CMakeList.txt : Top-level CMake project file, do global configuration
-# and include sub-projects here.
+﻿# CMakeList.txt : CMake project for docker-test-library, include source and define
+# project specific logic here.
 #
 cmake_minimum_required (VERSION 3.8)
 
-project (docker-test)
+include_directories (${PROJECT_BINARY_DIR})
 
-set(CMAKE_CXX_STANDARD 11)
-set(CMAKE_CXX_STANDARD_REQUIRED True)
+include (GenerateExportHeader)
 
-# Include sub-projects.
-add_subdirectory (docker-test-library)
+add_library (docker-test-library SHARED "docker-test-library.cpp")
 
-link_directories (${PROJECT_BINARY_DIR}/docker-test-library)
+generate_export_header (docker-test-library
+    BASE_NAME docker-test-library
+    EXPORT_MACRO_NAME docker-test-library_EXPORT
+    EXPORT_FILE_NAME docker-test-library_Export.h
+    STATIC_DEFINE docker-test-library_BUILT_AS_STATIC)
 
-add_executable (docker-test "main.cpp")
-
-target_link_libraries (docker-test PUBLIC 
-                       docker-test-library)
-
-target_include_directories (docker-test
-                            PUBLIC ${PROJECT_SOURCE_DIR}/docker-test-library
-                            PRIVATE ${PROJECT_BINARY_DIR})
+#file (COPY ${PROJECT_BINARY_DIR}/docker-test-library/docker-test-library.dll
+#      DESTINATION ${PROJECT_BINARY_DIR})
